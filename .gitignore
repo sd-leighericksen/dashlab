@@ -13,3 +13,6 @@ next-env.d.ts
 npm-debug.log*
 /coverage
 /drizzle/meta/_journal.json.bak
+
+# raw PWA generator export (shipped copies live in public/)
+/pwa-assets/

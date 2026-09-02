@@ -18,7 +18,7 @@ export default async function GeneralSettings({
   const { saved, error } = await searchParams;
   const tok = accentTokens(s.accentDefault);
   const cLight = contrastRatio(tok.accentInkLight, "#efeeec").toFixed(2);
-  const cDark = contrastRatio(tok.accentInkDark, "#131313").toFixed(2);
+  const cDark = contrastRatio(tok.accentInkDark, "#080909").toFixed(2);
 
   return (
     <div>

@@ -5,12 +5,19 @@ import { getSettings } from "@/lib/settings";
 import { readThemePref, resolveTheme } from "@/lib/theme-cookie";
 import { accentStyle } from "@/lib/theme";
 import type { CSSProperties } from "react";
+import { pwaMetadata, pwaViewport } from "@/lib/pwa";
+import { PwaRegister } from "@/components/pwa/PwaRegister";
 
-export const metadata: Metadata = {
-  title: "dashlab",
-  robots: { index: false, follow: false, nocache: true },
-  icons: { icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23000'/%3E%3C/svg%3E" },
-};
+export const viewport = pwaViewport;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSettings();
+  return {
+    ...pwaMetadata,
+    title: settings.homelabName,
+    robots: { index: false, follow: false, nocache: true },
+  };
+}
 
 export default async function AppRootLayout({
   children,
@@ -28,7 +35,10 @@ export default async function AppRootLayout({
       style={style}
       suppressHydrationWarning
     >
-      <body>{children}</body>
+      <body>
+        <PwaRegister />
+        {children}
+      </body>
     </html>
   );
 }

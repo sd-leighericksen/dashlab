@@ -9,14 +9,25 @@ import { getActor } from "@/lib/auth/actor";
 import { getDashboardBySlug, resolveTheme } from "@/lib/dashboards/queries";
 import { canViewDashboard, canEditDashboard } from "@/lib/dashboards/access";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import type { Metadata } from "next";
+import { pwaMetadata, pwaViewport } from "@/lib/pwa";
+import { PwaRegister } from "@/components/pwa/PwaRegister";
 
 export const dynamic = "force-dynamic";
 
-import type { Metadata } from "next";
-export const metadata: Metadata = {
-  robots: { index: false, follow: false, nocache: true },
-  icons: { icon: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%23000'/%3E%3C/svg%3E" },
-};
+export const viewport = pwaViewport;
+
+export async function generateMetadata(): Promise<Metadata> {
+  const h = await headers();
+  const slug = slugFromPath(h.get("x-dashlab-pathname"));
+  const settings = await getSettings();
+  const dash = slug ? await getDashboardBySlug(slug) : null;
+  return {
+    ...pwaMetadata,
+    title: dash ? `${settings.homelabName} - ${dash.name}` : settings.homelabName,
+    robots: { index: false, follow: false, nocache: true },
+  };
+}
 
 function slugFromPath(path: string | null): string | null {
   if (!path) return null;
@@ -66,6 +77,7 @@ export default async function DashRootLayout({
       suppressHydrationWarning
     >
       <body>
+        <PwaRegister />
         {showChrome ? (
           <header className="flex items-center justify-end gap-4 px-4 py-2 text-xs">
             <ThemeToggle />

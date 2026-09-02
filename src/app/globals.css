@@ -30,12 +30,12 @@
   --accent: #f3b445;
   --accent-ink-dark: #f3b445;
   --accent-ink-light: #995f00;
-  --accent-fg: #131313;
+  --accent-fg: #080909;
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --bg: #131313;
+  --bg: #080909;
   --fg: #efeeec;
   --ok: #4ade80;
   --warn: #f59e0b;
@@ -47,7 +47,7 @@
 [data-theme="light"] {
   color-scheme: light;
   --bg: #efeeec;
-  --fg: #131313;
+  --fg: #080909;
   --ok: #166534;
   --warn: #92400e;
   --err: #b91c1c;

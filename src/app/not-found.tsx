@@ -3,7 +3,7 @@ export default function NotFound() {
     <html lang="en" data-theme="dark">
       <body
         style={{
-          background: "#131313",
+          background: "#080909",
           color: "#efeeec",
           fontFamily: "ui-monospace, monospace",
           display: "flex",

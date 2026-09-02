@@ -1,11 +1,11 @@
 // Accent-token derivation. Pure functions, usable on server and client.
 // Given an accent hex + fixed bg/fg pairs, compute:
-//  - accentFg  : text colour ON accent fills (#131313 or #efeeec by contrast)
+//  - accentFg  : text colour ON accent fills (#080909 or #efeeec by contrast)
 //  - accentInkDark / accentInkLight : accent-as-text nudged to >= 4.5:1 vs bg
 
-const DARK_BG = "#131313";
+const DARK_BG = "#080909";
 const LIGHT_BG = "#efeeec";
-const INK_DARK = "#131313";
+const INK_DARK = "#080909";
 const INK_LIGHT = "#efeeec";
 
 type RGB = { r: number; g: number; b: number };
