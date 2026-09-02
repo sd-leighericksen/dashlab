@@ -7,6 +7,7 @@ const KIND_SECTION: Record<ContentKindT, string> = {
   service: "Services",
   server: "Servers",
   external: "External Services",
+  bookmark: "Bookmarks",
 };
 
 function KeyVal({ k, v }: { k: string; v: React.ReactNode }) {
@@ -47,7 +48,7 @@ export function ManPage({
   const state = (probe?.state as string) ?? "unknown";
   const dot = state === "up" ? "●" : state === "down" ? "○" : "◌";
   const dotColor = state === "up" ? "text-ok" : state === "down" ? "text-err" : "text-fg-faint";
-  const seg: Record<ContentKindT, string> = { service: "s", server: "h", external: "x" };
+  const seg: Record<ContentKindT, string> = { service: "s", server: "h", external: "x", bookmark: "b" };
 
   return (
     <main className="mx-auto flex max-w-4xl flex-col gap-6 px-4 pb-16 pt-2 text-sm">

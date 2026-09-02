@@ -5,6 +5,7 @@ const KIND_PLURAL: Record<ContentKindT, string> = {
   service: "services",
   server: "servers",
   external: "external-services",
+  bookmark: "bookmarks",
 };
 
 export function apiPath(kind: ContentKindT, slug: string): string {

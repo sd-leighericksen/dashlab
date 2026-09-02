@@ -25,6 +25,7 @@ export default async function NewContent({
               { value: "service", label: "service" },
               { value: "server", label: "server" },
               { value: "external", label: "external" },
+              { value: "bookmark", label: "bookmark" },
             ]}
           />
         </label>

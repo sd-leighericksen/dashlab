@@ -15,7 +15,7 @@ export type BodyConfig = {
   machineStats: Record<string, MachineStat>;
 };
 
-const KIND_SEG: Record<string, string> = { service: "s", server: "h", external: "x" };
+const KIND_SEG: Record<string, string> = { service: "s", server: "h", external: "x", bookmark: "b" };
 
 type FlatItem = DashSection["items"][number];
 

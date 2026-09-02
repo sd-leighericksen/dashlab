@@ -6,7 +6,7 @@ import { Heading, Notice } from "@/components/settings/fields";
 import { trashContent } from "./actions";
 
 export const dynamic = "force-dynamic";
-const KIND_SEG: Record<ContentKindT, string> = { service: "s", server: "h", external: "x" };
+const KIND_SEG: Record<ContentKindT, string> = { service: "s", server: "h", external: "x", bookmark: "b" };
 
 export default async function ContentSettings({
   searchParams,

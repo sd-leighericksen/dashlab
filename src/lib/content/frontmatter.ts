@@ -21,6 +21,21 @@ function splitFrontmatter(raw: string): { fm: string | null; body: string } {
   return { fm: m[1], body: text.slice(m[0].length) };
 }
 
+function stripNullDeep(value: unknown): unknown {
+  if (Array.isArray(value)) {
+    return value.map(stripNullDeep).filter((v) => v !== null && v !== undefined);
+  }
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value)) {
+      if (v === null || v === undefined) continue;
+      out[k] = stripNullDeep(v);
+    }
+    return out;
+  }
+  return value;
+}
+
 function findSecretKeys(obj: unknown, prefix = ""): string[] {
   const hits: string[] = [];
   if (obj && typeof obj === "object" && !Array.isArray(obj)) {
@@ -61,8 +76,12 @@ export function parseContent(raw: string, kind: ContentKindT): ParsedFile {
     errors.push({ severity: "error", path: k, message: "secrets do not belong in content files" });
   }
 
+  // A blank YAML key ("server:") parses to null; optional zod fields reject null,
+  // so treat null/undefined as "absent" before validating.
+  const cleaned = stripNullDeep(rawObj) as Record<string, unknown>;
+
   const schema = schemaFor(kind);
-  const result = schema.safeParse(rawObj);
+  const result = schema.safeParse(cleaned);
   let valid = true;
   if (result.success) {
     data = result.data as Record<string, unknown>;
@@ -75,7 +94,7 @@ export function parseContent(raw: string, kind: ContentKindT): ParsedFile {
         message: issue.message,
       });
     }
-    data = rawObj; // keep raw so the page can still show something
+    data = cleaned; // keep parsed values so the page can still show something
   }
 
   if (errors.some((e) => e.severity === "error")) valid = false;

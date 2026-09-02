@@ -21,6 +21,7 @@ const DEFAULT_CATEGORIES = [
   { slug: "home", name: "Home", glyph: "/home", sortOrder: 40 },
   { slug: "monitoring", name: "Monitoring", glyph: "/monitoring", sortOrder: 50 },
   { slug: "external", name: "External Services", glyph: "/external", sortOrder: 60 },
+  { slug: "bookmarks", name: "Bookmarks", glyph: "/bookmarks", sortOrder: 70 },
 ];
 
 export async function ensureSettings(): Promise<void> {

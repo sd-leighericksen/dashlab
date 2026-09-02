@@ -152,7 +152,7 @@ export function reindex(kind: ContentKindT, slug: string): Promise<void> {
 export async function scanAll(): Promise<number> {
   await fs.mkdir(contentRoot(), { recursive: true });
   const seen = new Set<string>();
-  for (const kind of ["server","service","external"] as const) {
+  for (const kind of ["server","service","external","bookmark"] as const) {
     const dir = kindDir(kind);
     await fs.mkdir(dir, { recursive: true });
     let entries: string[] = [];

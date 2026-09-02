@@ -24,7 +24,7 @@ const TOGGLES: { name: string; label: string }[] = [
   { name: "showUptime", label: "uptime column" },
   { name: "showFilters", label: "filter bar" },
 ];
-const WIDGET_TYPES = ["beszel", "uptime_kuma", "openrouter", "clock"];
+const WIDGET_TYPES = ["beszel", "uptime_kuma", "openrouter"];
 
 export default async function EditDashboard({
   params,

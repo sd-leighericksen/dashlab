@@ -6,6 +6,7 @@ import {
 } from "@/lib/dashboards/queries";
 import { Banner } from "@/components/dashboard/Banner";
 import { StatusLine } from "@/components/dashboard/StatusLine";
+import { InlineClock } from "@/components/dashboard/InlineClock";
 import { WidgetGrid } from "@/components/dashboard/WidgetGrid";
 import { DashboardBody, type BodyConfig } from "@/components/dashboard/DashboardBody";
 import { CardGrid } from "@/components/dashboard/CardGrid";
@@ -66,7 +67,10 @@ export default async function DashboardPage({
   return (
     <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 pb-16 pt-2">
       <Banner text={bannerText.toUpperCase()} font={bannerFont} ariaLabel={bannerText} />
-      <StatusLine prompt={`${promptName}@dashlab:~$`} counts={full.counts} />
+      <div className="flex items-baseline justify-between gap-4">
+        <StatusLine prompt={`${promptName}@dashlab:~$`} counts={full.counts} />
+        <InlineClock />
+      </div>
       {dash.showWidgets ? <WidgetGrid widgets={full.widgets} slug={dash.slug} /> : null}
       {dash.layout === "cards" ? (
         <CardGrid sections={full.sections} preferred={preferred} />

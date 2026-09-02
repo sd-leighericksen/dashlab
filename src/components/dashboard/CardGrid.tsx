@@ -23,10 +23,11 @@ export function CardGrid({
       {items.map(({ content, probe }) => {
         const fm = content.frontmatter as {
           card_url?: string;
+          url?: string;
           icon?: string;
           urls?: { domain?: string; tailscale?: string; local?: string };
         };
-        const url = fm.card_url ?? preferredAddress(fm.urls, preferred)?.url ?? null;
+        const url = fm.card_url ?? fm.url ?? preferredAddress(fm.urls, preferred)?.url ?? null;
         const state = (probe?.state as string) ?? "unknown";
         const dot = state === "up" ? "bg-ok" : state === "down" ? "bg-err" : "bg-fg-faint";
         const glyph = glyphFor(content.name, fm.icon);

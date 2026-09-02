@@ -4,6 +4,7 @@ import { getRaw, getContent } from "@/lib/content/repo";
 import { CONTENT_KINDS, type ContentKindT } from "@/lib/content/kinds";
 import { Heading } from "@/components/settings/fields";
 import { EditorForm } from "@/components/content/EditorForm";
+import { FieldsReference } from "@/components/content/FieldsReference";
 
 export const dynamic = "force-dynamic";
 
@@ -37,6 +38,7 @@ export default async function EditContent({
           ))}
         </ul>
       ) : null}
+      <FieldsReference kind={kind} />
       <EditorForm kind={kind} slug={slug} initialRaw={file.raw} baseHash={file.hash} />
     </div>
   );

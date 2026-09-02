@@ -71,6 +71,7 @@ const KIND_META: { kind: ContentKindT; one: string; many: string }[] = [
   { kind: "service", one: "service", many: "services" },
   { kind: "server", one: "server", many: "servers" },
   { kind: "external", one: "external_service", many: "external_services" },
+  { kind: "bookmark", one: "bookmark", many: "bookmarks" },
 ];
 
 const ro = { readOnlyHint: true, idempotentHint: true, openWorldHint: false };

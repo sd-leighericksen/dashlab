@@ -38,16 +38,23 @@ export function ItemRow({
   const pressTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const fm = item.frontmatter as {
     urls?: { domain?: string; tailscale?: string; local?: string };
+    url?: string;
     port?: number;
     open_in?: string;
   };
-  const addresses = appAddresses(fm.urls, preferred);
+  const isBookmark = item.kind === "bookmark";
+  const addresses = isBookmark
+    ? fm.url
+      ? [{ type: "domain" as const, url: fm.url, label: "dom" as const }]
+      : []
+    : appAddresses(fm.urls, preferred);
   const primary: AddressOption | null = addresses[0] ?? null;
   const openIn = fm.open_in ?? "new_tab";
   const state = (probe?.state as string) ?? "unknown";
-  const glyph = state === "up" ? "●" : state === "down" ? "○" : "◌";
-  const glyphColor =
-    state === "up" ? "text-ok" : state === "down" ? "text-err" : "text-fg-faint";
+  const glyph = isBookmark ? "↗" : state === "up" ? "●" : state === "down" ? "○" : "◌";
+  const glyphColor = isBookmark
+    ? "text-accent-ink"
+    : state === "up" ? "text-ok" : state === "down" ? "text-err" : "text-fg-faint";
 
   const onPointerDown = useCallback(() => {
     if (addresses.length <= 1) return;
@@ -112,7 +119,7 @@ export function ItemRow({
         <span className="hidden w-[8ch] shrink-0 truncate text-fg-muted md:inline">{item.serverSlug}</span>
       ) : null}
 
-      {down ? (
+      {isBookmark ? null : down ? (
         <span className="shrink-0 text-xs text-err">down · {probe?.lastError?.slice(0, 24)}</span>
       ) : visible.showBadges ? (
         <span className="flex shrink-0 items-center gap-1">
@@ -144,7 +151,7 @@ export function ItemRow({
         </span>
       ) : null}
 
-      {visible.showUptime ? (
+      {!isBookmark && visible.showUptime ? (
         <span className="hidden w-[5ch] shrink-0 text-right text-fg-muted sm:inline">{uptime}</span>
       ) : null}
 

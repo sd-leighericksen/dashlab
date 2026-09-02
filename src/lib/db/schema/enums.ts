@@ -5,6 +5,7 @@ export const contentKind = pgEnum("content_kind", [
   "service",
   "server",
   "external",
+  "bookmark",
 ]);
 export const themeMode = pgEnum("theme_mode", ["light", "dark", "system"]);
 export const addressType = pgEnum("address_type", [

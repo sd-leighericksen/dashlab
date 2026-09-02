@@ -1,5 +1,5 @@
 // dashlab service worker — network-first for pages, cache-first for static, never caches API/MCP.
-const CACHE = "dashlab-v1";
+const CACHE = "dashlab-v2";
 
 self.addEventListener("install", () => self.skipWaiting());
 
