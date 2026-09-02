@@ -1,0 +1,43 @@
+services:
+  dashlab:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    image: dashlab:latest
+    container_name: dashlab
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "3000:3000"
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: ${TZ:-Australia/Melbourne}
+      DATABASE_URL: postgres://dashlab:${POSTGRES_PASSWORD:-dashlab}@postgres:5432/dashlab
+      DASHLAB_SECRET: ${DASHLAB_SECRET:?set DASHLAB_SECRET in .env}
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:3000}
+      TRUST_PROXY: ${TRUST_PROXY:-false}
+      # DASHLAB_SETUP_USERNAME: admin
+      # DASHLAB_SETUP_PASSWORD: ${SETUP_PASSWORD}
+    volumes:
+      - ./data/content:/data/content
+      - ./data/icons:/data/icons
+  postgres:
+    image: postgres:17-alpine
+    container_name: dashlab-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dashlab
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dashlab}
+      POSTGRES_DB: dashlab
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dashlab -d dashlab"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+volumes:
+  pgdata: {}

@@ -1,0 +1,22 @@
+name: dashlab-dev
+# Postgres only, for local `npm run dev`.
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: dashlab-dev-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: dashlab
+      POSTGRES_PASSWORD: dashlab
+      POSTGRES_DB: dashlab
+    ports:
+      - "5438:5432"
+    volumes:
+      - dashlab_pgdata_dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dashlab -d dashlab"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+volumes:
+  dashlab_pgdata_dev: {}

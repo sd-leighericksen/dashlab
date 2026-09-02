@@ -1,0 +1,15 @@
+/node_modules
+/.next
+/out
+/build
+next-env.d.ts
+*.tsbuildinfo
+.env
+.env.local
+.env*.local
+/data
+!/data/.gitkeep
+.DS_Store
+npm-debug.log*
+/coverage
+/drizzle/meta/_journal.json.bak
